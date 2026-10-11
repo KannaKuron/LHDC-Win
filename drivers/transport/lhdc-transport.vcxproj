@@ -8,7 +8,7 @@
     <ProjectGuid>{E61BF8B2-D882-4AD9-A492-DB6CAB921BAE}</ProjectGuid>
     <Configuration Condition="'$(Configuration)'==''">Release</Configuration>
     <Platform Condition="'$(Platform)'==''">x64</Platform>
-    <WindowsTargetPlatformVersion>10.0.28000.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
@@ -29,6 +29,7 @@
     <Inf2CatWindowsVersionList>10_GE_X64</Inf2CatWindowsVersionList>
     <!-- WDK 28000's managed PackageVerifier throws NullReferenceException here.
          Run the installed native verifier with strict Windows Driver rules. -->
+    <!-- Kept for parity with upstream; also needed on WDK 26100. -->
     <SkipPackageVerification>true</SkipPackageVerification>
   </PropertyGroup>
   <ItemDefinitionGroup>

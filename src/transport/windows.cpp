@@ -135,7 +135,9 @@ std::optional<TargetDevice> discover_target() {
             win_error("Target device enumeration");
         }
         const auto hardware=property(set.value,device,DEVPKEY_Device_HardwareIds);
-        if(_wcsicmp(hardware.c_str(),L"BTHENUM\\{0000110B-0000-1000-8000-00805F9B34FB}_VID&000102B0_PID&0000")!=0) continue;
+        // W830NB does not report its own VID/PID; Windows names the Audio Sink
+        // after the local radio vendor (LOCALMFG&0002 = Intel on this machine).
+        if(_wcsicmp(hardware.c_str(),L"BTHENUM\\{0000110B-0000-1000-8000-00805F9B34FB}_LOCALMFG&0002")!=0) continue;
         wchar_t id[MAX_DEVICE_ID_LEN]{};
         if(!SetupDiGetDeviceInstanceIdW(set.value,&device,id,MAX_DEVICE_ID_LEN,nullptr)) win_error("Target instance ID");
         std::wstring instance(id);
@@ -145,8 +147,8 @@ std::optional<TargetDevice> discover_target() {
         if(!std::all_of(hexadecimal.begin(),hexadecimal.end(),[](wchar_t c){return std::iswxdigit(c)!=0;})) continue;
         const auto address=std::stoull(hexadecimal,nullptr,16);
         const auto connection=query_connection(address);
-        if(!connection.known || _wcsicmp(connection.device.szName,L"OPPO Enco X4")!=0) continue;
-        if(found) throw std::runtime_error("Multiple Enco X4 Audio Sink devices are paired; select one by removing the other pairing first");
+        if(!connection.known || _wcsicmp(connection.device.szName,L"EDIFIER W830NB")!=0) continue;
+        if(found) throw std::runtime_error("Multiple EDIFIER W830NB Audio Sink devices are paired; select one by removing the other pairing first");
         found=TargetDevice{std::move(instance),address};
     }
     return found;
@@ -154,7 +156,7 @@ std::optional<TargetDevice> discover_target() {
 const TargetDevice& target_device() {
     static const auto target=[] {
         const auto device=discover_target();
-        if(!device) throw std::runtime_error("No supported OPPO Enco X4 Audio Sink is paired");
+        if(!device) throw std::runtime_error("No supported EDIFIER W830NB Audio Sink is paired");
         return *device;
     }();
     return target;

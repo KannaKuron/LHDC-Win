@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations"><ProjectConfiguration Include="Release|x64"><Configuration>Release</Configuration><Platform>x64</Platform></ProjectConfiguration></ItemGroup>
-  <PropertyGroup Label="Globals"><ProjectGuid>{07A34E3A-C331-4EE9-94D2-9AF1AB6624F4}</ProjectGuid><WindowsTargetPlatformVersion>10.0.28000.0</WindowsTargetPlatformVersion></PropertyGroup>
+  <PropertyGroup Label="Globals"><ProjectGuid>{07A34E3A-C331-4EE9-94D2-9AF1AB6624F4}</ProjectGuid><WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion></PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration"><ConfigurationType>Driver</ConfigurationType><DriverType>KMDF</DriverType><DriverTargetPlatform>Desktop</DriverTargetPlatform><TargetVersion>Windows10</TargetVersion><PlatformToolset>WindowsKernelModeDriver10.0</PlatformToolset><UseDebugLibraries>false</UseDebugLibraries><KmdfVersion>1.35</KmdfVersion><SignMode>Off</SignMode></PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />

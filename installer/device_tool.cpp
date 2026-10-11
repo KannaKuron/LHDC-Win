@@ -61,7 +61,7 @@ class Target {
 public:
     explicit Target(const wchar_t* instance) {
         // Resolve the supported physical device independently before any operation.
-        if (!equal(instance,lhdc::target_device().instance)) throw std::invalid_argument("Only the automatically detected Enco X4 Audio Sink instance is allowed");
+        if (!equal(instance,lhdc::target_device().instance)) throw std::invalid_argument("Only the automatically detected EDIFIER W830NB Audio Sink instance is allowed");
         set_=SetupDiCreateDeviceInfoList(nullptr,nullptr);
         if (set_==INVALID_HANDLE_VALUE) win_error("Device set");
         data_.cbSize=sizeof(data_);

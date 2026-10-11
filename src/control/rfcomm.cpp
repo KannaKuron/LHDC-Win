@@ -124,22 +124,11 @@ std::uint32_t capability_revision() {
     return value;
 }
 void inspect_hi_res(std::optional<bool> desired) {
-    const auto address=target_device().address;
-    if(!bluetooth_connected(address)) throw std::runtime_error("Connect Enco X4 before querying Hi-Res");
-    if(desired==false) {
-        Profile profile{};DWORD size=sizeof(profile);
-        const auto error=RegGetValueW(HKEY_LOCAL_MACHINE,L"SOFTWARE\\LHDC-Win",L"Profile",RRF_RT_REG_BINARY,nullptr,&profile,&size);
-        if(error!=ERROR_SUCCESS && error!=ERROR_FILE_NOT_FOUND) throw WindowsError("Hi-Res profile guard",error);
-        if(error==ERROR_SUCCESS && (size!=sizeof(profile) || profile.sample_rate>48000 || profile.kbps>400))
-            throw std::runtime_error("Apply a LHDC profile at or below 48 kHz / 400 kbps before disabling Hi-Res");
-    }
-    Rfcomm control(address);
-    const auto handshake=control.request(0x0100);
-    if(handshake.empty() || handshake[0]!=0) throw std::runtime_error("Earbud rejected HeyMelody handshake");
-    const auto result=hey_melody::hi_res([&](auto cmd,auto payload){return control.request(cmd,payload);},desired);
-    if(result.changed) request_capability_refresh();
-    const auto boolean=[](std::optional<bool> value){return value.has_value()?(*value?"true":"false"):"null";};
-    std::cout<<"{\"event\":\"hi_res\",\"supported\":"<<(result.enabled.has_value()?"true":"false")
-        <<",\"enabled\":"<<boolean(result.enabled)<<",\"before\":"<<boolean(result.before)<<",\"changed\":"<<(result.changed?"true":"false")<<"}\n";
+    // The W830NB is an EDIFIER headset and does not speak the OPPO HeyMelody
+    // control protocol. Its LHDC Hi-Res tier is toggled from Edifier Connect;
+    // the AVDTP capability exchange below the encoder is protocol-native and
+    // needs no per-headset switch here.
+    (void)desired;
+    throw std::runtime_error("Hi-Res toggle uses the OPPO HeyMelody protocol; switch the W830NB Hi-Res tier from the Edifier Connect app instead");
 }
 }

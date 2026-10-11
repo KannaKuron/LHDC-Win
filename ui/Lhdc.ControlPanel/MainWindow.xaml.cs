@@ -220,7 +220,7 @@ public partial class MainWindow : Window {
         var devices = await client.Host("audio-devices");
         var endpoint = devices["devices"]!.AsArray().FirstOrDefault(d => {
             var name = d!["name"]!.GetValue<string>();
-            return name.Contains("Enco X4", StringComparison.OrdinalIgnoreCase)
+            return name.Contains("W830NB", StringComparison.OrdinalIgnoreCase)
                 && d["channels"]!.GetValue<int>() == 2
                 && name.Contains("LHDC", StringComparison.OrdinalIgnoreCase) == (service == "lhdc-transport");
         });

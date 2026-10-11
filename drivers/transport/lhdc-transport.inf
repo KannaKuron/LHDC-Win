@@ -8,12 +8,13 @@ CatalogFile=lhdc-transport.cat
 PnpLockdown=1
 
 [Manufacturer]
-%Provider%=Models,NTamd64.10.0...28000
+%Provider%=Models,NTamd64.10.0
 
-[Models.NTamd64.10.0...28000]
-; Deliberately matches only the observed OPPO Audio Sink hardware ID.
+[Models.NTamd64.10.0]
+; Matches the W830NB Audio Sink hardware ID (LOCALMFG = local radio vendor,
+; Intel on the target machine; the headset reports no VID/PID of its own).
 ; Binding must still be selected and checked for the exact device instance.
-%DeviceDesc%=Transport,BTHENUM\{0000110b-0000-1000-8000-00805f9b34fb}_VID&000102b0_PID&0000
+%DeviceDesc%=Transport,BTHENUM\{0000110b-0000-1000-8000-00805f9b34fb}_LOCALMFG&0002
 
 [DestinationDirs]
 DriverFiles=13
@@ -54,5 +55,5 @@ KmdfLibraryVersion=1.35
 
 [Strings]
 Provider="Windows LHDC Prototype"
-DeviceDesc="Enco X4 LHDC A2DP Driver"
+DeviceDesc="EDIFIER W830NB LHDC A2DP Driver"
 DiskName="Windows LHDC transport"

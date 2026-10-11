@@ -43,9 +43,9 @@ public:
         if(IsEqualGUID(data->guidEventContext,volume_context)) return S_OK;
         // PCM has no master attenuation; preserve the pre-mute scalar in Windows.
         if(!std::isfinite(data->fMasterVolume) || data->fMasterVolume<0 || data->fMasterVolume>1) return E_INVALIDARG;
-        const auto value=av::absolute_volume(data->fMasterVolume)|(data->bMuted?128:0);
+        const auto volume_byte=av::absolute_volume(data->fMasterVolume)|(data->bMuted?128:0);
         auto previous=state.load();
-        while(!state.compare_exchange_weak(previous,((previous>>8)+1)*256+value)) {}
+        while(!state.compare_exchange_weak(previous,((previous>>8)+1)*256+volume_byte)) {}
         return S_OK;
     }
 };

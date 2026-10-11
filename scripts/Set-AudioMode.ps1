@@ -20,7 +20,7 @@ $hostTool=Join-Path $projectRoot 'build/host/lhdc-host.exe'
 $deviceText=@(& $hostTool target)
 if($LASTEXITCODE -ne 0) { throw 'Target device discovery failed.' }
 $device=$deviceText[-1] | ConvertFrom-Json
-if(-not $device.found) { throw 'No supported Enco X4 is paired.' }
+if(-not $device.found) { throw 'No supported EDIFIER W830NB is paired.' }
 $target=$device.instance
 function Invoke-Native([string]$Tool,[string[]]$Arguments,[string]$Name,[switch]$AllowRestart) {
     $output=@(& $Tool @Arguments 2>&1)
@@ -144,7 +144,7 @@ try {
             $deadline=(Get-Date).AddSeconds(15)
             do {
                 $devices=Invoke-Native $hostTool @('audio-devices') 'windows-endpoints'
-                $stereo=@($devices.devices | Where-Object { $_.name -like '*Enco X4*' -and $_.name -notlike '*LHDC*' -and $_.channels -eq 2 -and $_.device_sample_rate -ge 44100 })
+                $stereo=@($devices.devices | Where-Object { $_.name -like '*W830NB*' -and $_.name -notlike '*LHDC*' -and $_.channels -eq 2 -and $_.device_sample_rate -ge 44100 })
                 if ($stereo.Count -eq 1) { break }
                 [Threading.Thread]::Sleep(250)
             } while ((Get-Date) -lt $deadline)

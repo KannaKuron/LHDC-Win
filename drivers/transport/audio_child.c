@@ -18,7 +18,7 @@ NTSTATUS LhdcCreateAudioChild(WDFDEVICE parent)
     if (init==NULL) return STATUS_INSUFFICIENT_RESOURCES;
     RtlInitUnicodeString(&id,LHDC_AUDIO_HARDWARE_ID);
     RtlInitUnicodeString(&instance,L"Audio0");
-    RtlInitUnicodeString(&description,L"Enco X4 LHDC Audio");
+    RtlInitUnicodeString(&description,L"EDIFIER W830NB LHDC Audio");
     RtlInitUnicodeString(&location,L"Bluetooth A2DP");
     status=WdfPdoInitAssignDeviceID(init,&id);
     if (!NT_SUCCESS(status)) goto fail;

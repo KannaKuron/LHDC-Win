@@ -13,8 +13,8 @@ if ($Audio) {
 }
 $certDirectory=Join-Path $projectRoot 'build\test-certificate'
 $kitsRoot=(Get-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Microsoft\Windows Kits\Installed Roots').KitsRoot10
-$signTool=Join-Path $kitsRoot 'bin\10.0.28000.0\x64\signtool.exe'
-$inf2cat=Join-Path $kitsRoot 'bin\10.0.28000.0\x86\Inf2Cat.exe'
+$signTool=Join-Path $kitsRoot 'bin\10.0.26100.0\x64\signtool.exe'
+$inf2cat=Join-Path $kitsRoot 'bin\10.0.26100.0\x86\Inf2Cat.exe'
 New-Item -ItemType Directory -Path $destination,$certDirectory -Force | Out-Null
 $metadata=Join-Path $certDirectory 'certificate.json'
 if (Test-Path -LiteralPath $metadata) {
